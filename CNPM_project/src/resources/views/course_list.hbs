@@ -1,0 +1,241 @@
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" type="text/css" href="/css/course_list.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-aFq/bzH65dt+w6FI2ooMVUpc+21e0SRygnTpmBvdBgSdnuTN7QbdgL+OapgHtvPp" crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" href="css/util.css">
+    <link rel="stylesheet" type="text/css" href="css/table.css">
+    <style>
+        .column1 {
+            width: 10%;
+        }
+
+        .column2 {
+            width: 20%
+        }
+
+        .column3 {
+            width: 25%
+        }
+
+        .column4 {
+            width: 2%
+        }
+
+        .column5 {
+            width: 2%
+        }
+
+        .column6 {
+            width: 2%
+        }
+    </style>
+</head>
+
+<body>
+    <h1 style="font-family: Lato-Bold;text-align:center;color: #4272d7">Danh sách môn học</h1>
+    <div class="limiter">
+        <div class="container-table100">
+            <div class="wrap-table100">
+                <div class="table100 ver1 m-b-110">
+                    <div class="table100-head">
+                        <table>
+                            <thead>
+                                <tr class="row100 head">
+                                    <th class="cell100 column1">Mã môn học</th>
+                                    <th class="cell100 column2">Tên môn học</th>
+                                    <th class="cell100 column3">Giảng viên</th>
+                                    <th class="cell100 column4"></th>
+                                    <th class="cell100 column5"></th>
+                                    <th class="cell100 column6">
+                                        <a id="admin-add-course" onclick="showAddCourseForm()" href="#">
+                                            <i class='bx bxs-message-square-add'
+                                                style="color:rgb(255, 255, 255); font-size: 30px;"> </i>
+                                        </a>
+
+                                    </th>
+                                </tr>
+                            </thead>
+                        </table>
+                    </div>
+                    <div class="table100-body js-pscroll">
+                        <table>
+                            <tbody>
+                                {{#each courses}}
+                                <tr class="row100 body">
+                                    <td class="cell100 column1">{{this.course_ID}}</td>
+                                    <td class="cell100 column2">{{this.course_name}}</td>
+                                    <td class="cell100 column3">{{this.teacher_name}}</td>
+                                    <td class="cell100 column4">
+                                        <a class="btn btn-link" data-bs-toggle="view" data-id="{{this._id}}">
+                                            <ion-icon name="information-circle"></ion-icon>
+                                        </a>
+                                    </td>
+                                    <td class="cell100 column5">
+                                        <a class="btn btn-link" data-bs-toggle="entryclass" data-id="{{this._id}}">
+                                            <ion-icon name="people"></ion-icon>
+                                        </a>
+                                    </td>
+                                    <td class="cell100 column6">
+                                        <a class="btn btn-link" data-bs-toggle="modal" data-id="{{this._id}}"
+                                            data-bs-target="#deleteModal"><ion-icon name="trash"></ion-icon>
+                                        </a>
+                                    </td>
+
+                                </tr>
+                                {{/each}}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="exampleModalLabel">Xóa môn học</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    Bạn có chắc chắn muốn xóa?
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Hủy</button>
+                    <a onclick="deleteCourse(event)" href="#"><button id="btn-delete" type="button"
+                            class="btn btn-danger">Xóa</button></a>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+    {{!-- Add student form --}}
+    <div id="add-course-form" class="formbold-main-wrapper" style="display: none;">
+
+        <div class="formbold-form-wrapper">
+            <button id="closeButton" onclick="hideAddCourseForm()"><ion-icon name="close-outline"></ion-icon></button>
+            <div class="title">Thêm môn học</div>
+
+            <form name="add-course-form" action="" method="POST" onsubmit="addCourse(event)">
+                <div class="formbold-mb-5">
+                    <label for="course_ID" class="formbold-form-label">Mã môn học </label>
+                    <input type="text" name="course_ID" id="course_ID" placeholder="12345678"
+                        class="formbold-form-input" required>
+                </div>
+                <div class="formbold-mb-5">
+                    <label for="course_name" class="formbold-form-label">Tên môn học </label>
+                    <input type="text" name="course_name" id="course_name" placeholder="Toán"
+                        class="formbold-form-input" required>
+                </div>
+                <div class="formbold-mb-5">
+                    <label for="course-credits" class="formbold-form-label"> Số tín chỉ </label>
+                    <input type="text" name="course_credits" id="course_credits" placeholder="Số tín chỉ"
+                        class="formbold-form-input" required>
+                </div>
+                <div class="formbold-mb-5">
+                    <label for="num-of-lessons" class="formbold-form-label"> Số tiết </label>
+                    <input type="text" name="num_of_lessons" id="num_of_lessons" placeholder="Số tiết"
+                        class="formbold-form-input" required>
+                </div>
+                <div class="formbold-mb-5">
+                    <label for="teacher-name" class="formbold-form-label">Tên giảng viên</label>
+                    <input type="text" name="teacher_name" id="teacher_name" placeholder="Nguyễn Văn A"
+                        class="formbold-form-input" required>
+                </div>
+                <div class="formbold-mb-5">
+                    <label for="num-of-pupils" class="formbold-form-label"> Số lượng sinh viên</label>
+                    <input type="text" name="num_of_pupils" id="num_of_pupils" placeholder="Số lượng sinh viên"
+                        class="formbold-form-input" required>
+                </div>
+                <div class="formbold-mb-5">
+                    <label for="room" class="formbold-form-label"> Phòng học </label>
+                    <input type="text" name="room" id="room" placeholder="101" class="formbold-form-input" />
+                </div>
+                <div class="formbold-mb-5">
+                    <label for="date-time" class="formbold-form-label"> Thời gian </label>
+                    <input type="text" name="date_time" id="date_time" placeholder="T2 3,4,5"
+                        class="formbold-form-input" />
+                </div>
+                <div>
+                    <button type="submit" class="formbold-btn">Thêm</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    {{!-- Edit student form --}}
+    <div id="edit-course-form" class="formbold-main-wrapper" style="display: none;">
+        <div class="formbold-form-wrapper">
+            <button id="closeButton" onclick="hideEditCourseForm()"><ion-icon name="close"></ion-icon></button>
+            <div class="title">
+                <p>Xem thông tin môn học<ion-icon onclick="showEditBtn()" name="create"
+                        style="margin-left:50px"></ion-icon></p>
+            </div>
+
+            <form id="edit-form" name="edit-form" action="" method="POST">
+                <div class="formbold-mb-5">
+                    <label for="course_ID" class="formbold-form-label">Mã môn học </label>
+                    <input type="text" name="course_ID" id="edit-course_ID" class="formbold-form-input" disabled
+                        required>
+                </div>
+                <div class="formbold-mb-5">
+                    <label for="course_name" class="formbold-form-label">Tên môn học </label>
+                    <input type="text" name="course_name" id="edit-course_name" class="formbold-form-input" disabled
+                        required>
+                </div>
+                <div class="formbold-mb-5">
+                    <label for="course-credits" class="formbold-form-label"> Số tín chỉ </label>
+                    <input type="text" name="course_credits" id="edit-course_credits" class="formbold-form-input"
+                        disabled required>
+                </div>
+                <div class="formbold-mb-5">
+                    <label for="num-of-lessons" class="formbold-form-label"> Số tiết </label>
+                    <input type="text" name="num_of_lessons" id="edit-num_of_lessons" class="formbold-form-input"
+                        disabled>
+                </div>
+                <div class="formbold-mb-5">
+                    <label for="teacher-name" class="formbold-form-label">Tên giảng viên</label>
+                    <input type="text" name="teacher_name" id="edit-teacher_name" class="formbold-form-input" disabled>
+                </div>
+                <div class="formbold-mb-5">
+                    <label for="num-of-pupils" class="formbold-form-label"> Số lượng sinh viên </label>
+                    <input type="text" name="num_of_pupils" id="edit-num_of_pupils" class="formbold-form-input" disabled
+                        required>
+                </div>
+                <div class="formbold-mb-5">
+                    <label for="room" class="formbold-form-label">Phòng học</label>
+                    <input type="text" name="room" id="edit-room" class="formbold-form-input" disabled required>
+                </div>
+                <div class="formbold-mb-5">
+                    <label for="date-time" class="formbold-form-label"> Thời gian</label>
+                    <input type="text" name="date_time" id="edit-date_time" class="formbold-form-input" disabled>
+                </div>
+                <div>
+                    <button onclick="editCourse(event)" id="edit-submit" style="display: none; margin-top:25px;"
+                        class="formbold-btn">Sửa</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <form name="delete-form" method="POST" action=""></form>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="/scripts/course_list.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.7.7/handlebars.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.min.js"
+        integrity="sha384-Y4oOpwW3duJdCWv5ly8SCFYWqFDsfob/3GkgExXKV4idmbt98QcxXYs9UoXAB7BZ"
+        crossorigin="anonymous"></script>
+
+    <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
+    <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
+</body>
+
+</html>

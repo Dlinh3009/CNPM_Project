@@ -1,0 +1,169 @@
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+    <link rel="stylesheet" href="/css/profile.css">
+</head>
+
+<body>
+    <h1 style="font-family: Lato-Bold;text-align:center;color: #4272d7">Thông tin cá nhân</h1>
+    <div class="container" style=" position: relative ;top: 50px ;">
+        <div class="main-body">
+
+            <!-- /Breadcrumb -->
+
+            <div class="row gutters-sm">
+                <div class="col-md-4 mb-3">
+                    <div class="card" style=" border-radius: 10px ;">
+                        <div class="card-body">
+                            <div class="d-flex flex-column align-items-center text-center">
+                                <img class="image" style="border-radius: 10px;" src={{student.image}} alt="Admin"
+                                    width="150">
+                                <div class="mt-3">
+                                    <h4>{{student.name}}</h4>
+                                    <p class="text-secondary mb-1">Sinh viên</p>
+                                    <p class="text-muted font-size-sm">Đại học Công Nghệ</p>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-8">
+                    <div class="card mb-3" style=" border-radius: 10px ;">
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-sm-3">
+                                    <h6 class="mb-0">Mã số sinh viên</h6>
+                                </div>
+                                <div class="col-sm-9 text-secondary">
+                                    {{student.studentID}}
+                                </div>
+                            </div>
+                            <hr>
+                            <div class="row">
+                                <div class="col-sm-3">
+                                    <h6 class="mb-0">Họ và tên</h6>
+                                </div>
+                                <div class="col-sm-9 text-secondary">
+                                    {{student.name}}
+                                </div>
+                            </div>
+                            <hr>
+                            <div class="row">
+                                <div class="col-sm-3">
+                                    <h6 class="mb-0">Lớp khóa học</h6>
+                                </div>
+                                <div class="col-sm-9 text-secondary">
+                                    {{student.course_class}}
+                                </div>
+                            </div>
+                            <hr>
+                            <div class="row">
+                                <div class="col-sm-3">
+                                    <h6 class="mb-0">Ngày sinh</h6>
+                                </div>
+                                <div class="col-sm-9 text-secondary">
+                                    {{student.date_of_birth}}
+                                </div>
+                            </div>
+                            <hr>
+                            <div class="row">
+                                <div class="col-sm-3">
+                                    <h6 class="mb-0">Giới tính</h6>
+                                </div>
+                                <div class="col-sm-9 text-secondary">
+                                    {{student.sex}}
+                                </div>
+                            </div>
+                            <hr>
+                            <div class="row">
+                                <div class="col-sm-3">
+                                    <h6 class="mb-0">Địa chỉ</h6>
+                                </div>
+                                <div class="col-sm-9 text-secondary">
+                                    {{student.address}}
+                                </div>
+                            </div>
+                            <hr>
+                            <div class="row">
+                                <div class="col-sm-3">
+                                    <h6 class="mb-0">Email</h6>
+                                </div>
+                                <div class="col-sm-9 text-secondary">
+                                    {{student.email}}
+                                </div>
+                            </div>
+                            <hr>
+                            <div class="row">
+                                <div class="col-sm-3">
+                                    <h6 class="mb-0">Số điện thoại</h6>
+                                </div>
+                                <div class="col-sm-9 text-secondary">
+                                    {{student.phone_number}}
+                                </div>
+                            </div>
+                            <hr>
+                            <div class="row">
+                                <div class="col-sm-12">
+                                    <a class="btn btn-info " style="position: relative; float:right"
+                                        id="change-password-btn" onclick="showChangePassword()">Đổi mật
+                                        khẩu</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <div id="change-password" style="display: none;">
+                        <div class="change-password-container">
+
+                            <div class="col-sm-4">
+                                <button id="closeButton" onclick="hideChangePassword()"><ion-icon
+                                        name="close-outline"></ion-icon></button>
+                                <form name="change-password-form">
+                                    <div class="changepw-label">Đổi mật khẩu</div>
+                                    <label>Mật khẩu hiện tại</label>
+                                    <div class="form-group pass_show">
+                                        <input name="currentpass" type="password" class="form-control"
+                                            placeholder="Current Password">
+                                    </div>
+                                    <label>Mật khẩu mới</label>
+                                    <div class="form-group pass_show">
+                                        <input name="newpass1" type="password" class="form-control"
+                                            placeholder="New Password">
+                                    </div>
+                                    <label>Xác nhận mật khẩu mới</label>
+                                    <div class="form-group pass_show">
+                                        <input name="newpass2" type="password" class="form-control"
+                                            placeholder="Confirm Password">
+                                    </div>
+                                    <div class="col-sm-12">
+                                        <a onclick="changePassword(event)" class="btn btn-info "
+                                            style="position:relative;left: 40%; top:20px;" id="">Xác
+                                            nhận</a>
+                                    </div>
+                                </form>
+
+                            </div>
+
+                        </div>
+                    </div>
+
+
+                </div>
+            </div>
+
+        </div>
+    </div>
+    <script src="/scripts/profile.js"></script>
+    <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
+    <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
+</body>
+
+</html>
